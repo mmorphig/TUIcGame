@@ -36,6 +36,14 @@
 *.exe
 *.out
 *.app
+*.x86_64
 
 # debug information files
 *.dwo
+
+# Save directories
+save/
+server/
+
+# Build cache (build dir itself is needed, the files inside are not)
+build/*
