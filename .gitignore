@@ -47,3 +47,4 @@ server/
 
 # Build cache (build dir itself is needed, the files inside are not)
 build/*
+!.gitkeep
