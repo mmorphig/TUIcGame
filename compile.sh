@@ -7,4 +7,4 @@ cd ..
 
 # Then compiles the server with just g++
 
-g++ server.cpp ./lib/txt_writer.c ./lib/cxx_utils.cpp -o server.x86_64
+g++ src/server.cpp ./lib/txt_writer.c ./lib/cxx_utils.cpp -o server.x86_64

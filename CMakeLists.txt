@@ -28,7 +28,7 @@ set(CPP_SOURCES
     lib/menu_logic.cpp
     lib/game_elements.cpp
     lib/irc_logic.cpp
-    main.cpp
+    src/main.cpp
 )
 
 # Compile object files

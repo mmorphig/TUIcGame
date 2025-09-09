@@ -13,8 +13,8 @@
 #include <queue>
 #include <ctime>
 #include <chrono>
-#include "lib/txt_writer.h"
-#include "lib/cxx_utils.hpp"
+#include "../lib/txt_writer.h"
+#include "../lib/cxx_utils.hpp"
 
 /* Packet types: 
  * 0: welcome S2C
