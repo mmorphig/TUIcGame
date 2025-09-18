@@ -262,33 +262,4 @@ void resize_windows() {
             screenBuffer[i][j].character = 0x20;
 	    }
 	}
-	
-    for (unsigned char i = 0; i < numWindows; i++) {
-        // Resize window to fit within terminal bounds
-        if (i == cmdHistoryWinIndex) { // hardcoding go brrr
-			// cmd history window, full display except the menu on the side and a bit removed from the bottom
-			windows[i].width = maxTermX - 32;
-			windows[i].height = maxTermY - 4; 
-		} else if (i == cmdInputWinIndex) {
-			// cmd input window, thin window on bottom of history, top of this overlaps the bottom of the history
-			windows[i].width = maxTermX - 32;
-			windows[i].y = maxTermY - 4;
-		} else if (i == menuSidebarWinIndex) {
-			// menu sidebar, full height with fixed width
-			windows[i].width = 30;
-			windows[i].height = maxTermY - 2;
-		} else if (i == mapWinIndex) {
-			// 
-			windows[i].height = maxTermY - 2;
-			windows[i].width = maxTermX - 32;
-		} else if (i == ircHistoryWinIndex) { // hardcoding go brrr
-			// irc history, same as cmd history
-			windows[i].width = maxTermX - 32;
-			windows[i].height = maxTermY - 4; 
-		} else if (i == ircInputWinIndex) {
-			// irc input, same as cmd input
-			windows[i].width = maxTermX - 32;
-			windows[i].y = maxTermY - 4;
-		}
-    }
 }
