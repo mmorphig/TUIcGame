@@ -16,10 +16,10 @@
 #include "../lib/txt_reader.h"
 #include "../lib/txt_writer.h"
 
-#define WINDOW_X_PADDING 2
-#define WINDOW_X_PADDING_DOUBLE 4
-#define WINDOW_Y_PADDING 2
-#define WINDOW_Y_PADDING_DOUBLE 4
+uint constexpr WINDOW_X_PADDING = 1;
+uint constexpr WINDOW_X_PADDING_DOUBLE = WINDOW_X_PADDING * 2;
+uint constexpr WINDOW_Y_PADDING = 1;
+uint constexpr WINDOW_Y_PADDING_DOUBLE = WINDOW_Y_PADDING * 2;
 
 int debug = 0;
 
@@ -385,25 +385,25 @@ int main(int argc, char* argv[]) {
     
 	// Initialize all the windows
     cmdHistoryWinIndex = numWindows; // 0
-    create_window(31, 1, maxTermX-32, maxTermY-4, (char*)"Command Window");
+    create_window(sidebarWindowWidth - 1, 1, maxTermX - sidebarWindowWidth - 2, maxTermY - 4, (char*)"Command Window");
 
     cmdInputWinIndex = numWindows; // 1
-    create_window(31, maxTermY-4, maxTermX-32, 3, (char*)"Cmd*"); // Starts active so it starts with the asterisk
+    create_window(sidebarWindowWidth - 1, maxTermY - 4, maxTermX - sidebarWindowWidth - 2, 3, (char*)"Cmd*"); // Starts active so it starts with the asterisk
 
     menuSidebarWinIndex = numWindows; // 2
-    create_window(1, 1, 30, maxTermY-4, (char*)"Menu");
+    create_window(1, 1, sidebarWindowWidth, maxTermY - 4, (char*)"Menu");
 
     messageBoxWinIndex = numWindows; // 3
     create_window(1, 1, 20, 20, (char*)"impossible.text");
 
     mapWinIndex = numWindows; // 4
-    create_window(31, 1, maxTermX-32, maxTermY-2, (char*)"Map");
+    create_window(sidebarWindowWidth - 1, 1, maxTermX - sidebarWindowWidth - 2, maxTermY - 2, (char*)"Map");
 
     ircHistoryWinIndex = numWindows; // 5
-    create_window(31, 1, maxTermX-32, maxTermY-4, (char*)"IRC Chat");
+    create_window(sidebarWindowWidth - 1, 1, maxTermX - sidebarWindowWidth - 2, maxTermY - 4, (char*)"IRC Chat");
 
     ircInputWinIndex = numWindows; // 6
-    create_window(31, maxTermY-4, maxTermX-32, 3, (char*)"");
+    create_window(sidebarWindowWidth - 1, maxTermY - 4, maxTermX - sidebarWindowWidth - 2, 3, (char*)"");
 
     windows[messageBoxWinIndex].visible = 0;
     windows[mapWinIndex].visible = 0;
@@ -502,27 +502,39 @@ int main(int argc, char* argv[]) {
 			if (i == menuSidebarWinIndex) {
 				// menu sidebar, full height with fixed width
 				windows[i].width = sidebarWindowWidth;
-				windows[i].height = maxTermY - WINDOW_Y_PADDING;
+				windows[i].height = maxTermY - WINDOW_Y_PADDING_DOUBLE;
+				windows[i].x = WINDOW_X_PADDING;
+				windows[i].y = WINDOW_Y_PADDING;
 			} else if (i == cmdHistoryWinIndex) { // hardcoding go brrr
 				// cmd history window, full display except the menu on the side and a bit removed from the bottom
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING;
-				windows[i].height = maxTermY - WINDOW_Y_PADDING_DOUBLE;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
+				windows[i].height = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
+				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
+				windows[i].y = WINDOW_Y_PADDING;
 			} else if (i == cmdInputWinIndex) {
 				// cmd input window, thin window on bottom of history, top of this overlaps the bottom of the history
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING;
-				windows[i].y = maxTermY - WINDOW_Y_PADDING_DOUBLE;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
+				windows[i].height = inputWindowHeight;
+				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
+				windows[i].y = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
 			} else if (i == mapWinIndex) {
 				// map, same as cmd history, but without the padding for the input
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
 				windows[i].height = maxTermY - WINDOW_Y_PADDING_DOUBLE;
+				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
+				windows[i].y = WINDOW_Y_PADDING;
 			} else if (i == ircHistoryWinIndex) {
 				// irc history, same as cmd history
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING;
-				windows[i].height = maxTermY - WINDOW_Y_PADDING_DOUBLE;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
+				windows[i].height = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
+				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
+				windows[i].y = WINDOW_Y_PADDING;
 			} else if (i == ircInputWinIndex) {
 				// irc input, same as cmd input
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width -WINDOW_X_PADDING;
-				windows[i].y = maxTermY - WINDOW_Y_PADDING_DOUBLE;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
+				windows[i].height = inputWindowHeight;
+				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
+				windows[i].y = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
 			}
 		}
 
