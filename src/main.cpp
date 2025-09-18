@@ -16,11 +16,6 @@
 #include "../lib/txt_reader.h"
 #include "../lib/txt_writer.h"
 
-uint constexpr WINDOW_X_PADDING = 1;
-uint constexpr WINDOW_X_PADDING_DOUBLE = WINDOW_X_PADDING * 2;
-uint constexpr WINDOW_Y_PADDING = 1;
-uint constexpr WINDOW_Y_PADDING_DOUBLE = WINDOW_Y_PADDING * 2;
-
 int debug = 0;
 
 int cmdCursorPos = 0;
@@ -321,7 +316,8 @@ int main(int argc, char* argv[]) {
 	} else {
 		testFile = std::ifstream(hostnameFile); // Actual hostname
 	}
-    if (testFile.is_open()) {
+    if (testFile.is_open()) { // TODO: maybe make the help message have a location in the player's root dir
+		cmdHelpMessageFilepath = "resources/helpmsg.txt";
 		newSave = 0; // newSave is set to 0, as this is a save that was already created
 		// Just to make sure, clear proc and tmp
 		std::string clearTempCommand = "rm -rf ./save/" + cmdName + "/root/proc/*}";
@@ -336,6 +332,7 @@ int main(int argc, char* argv[]) {
 		emptyFile(cmdWindowFile.c_str());
 		emptyFile(cmdHistoryFile.c_str());
     } else {
+		cmdHelpMessageFilepath = "resources/helpmsg.txt";
 		createFile(cmdWindowFile.c_str());
 		
 		// create the home dir, the save directory is named the same, it's simpler
@@ -497,44 +494,44 @@ int main(int argc, char* argv[]) {
 	    napms(16); // This is probably fine because this is not super likely to lag anyway
 	    resize_windows();
 		
-		for (unsigned char i = 0; i < numWindows; i++) { // TODO: fix/replace magic numbers
+		for (unsigned char i = 0; i < numWindows; i++) {
 			// Resize and move windows to fit within terminal bounds
 			if (i == menuSidebarWinIndex) {
 				// menu sidebar, full height with fixed width
 				windows[i].width = sidebarWindowWidth;
-				windows[i].height = maxTermY - WINDOW_Y_PADDING_DOUBLE;
-				windows[i].x = WINDOW_X_PADDING;
-				windows[i].y = WINDOW_Y_PADDING;
+				windows[i].height = maxTermY - windowPaddingYDouble;
+				windows[i].x = windowPaddingX;
+				windows[i].y = windowPaddingY;
 			} else if (i == cmdHistoryWinIndex) { // hardcoding go brrr
 				// cmd history window, full display except the menu on the side and a bit removed from the bottom
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
-				windows[i].height = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
-				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
-				windows[i].y = WINDOW_Y_PADDING;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - windowPaddingXDouble;
+				windows[i].height = maxTermY - inputWindowHeight - windowPaddingYDouble + 1;
+				windows[i].x = windowPaddingX + sidebarWindowWidth;
+				windows[i].y = windowPaddingY;
 			} else if (i == cmdInputWinIndex) {
 				// cmd input window, thin window on bottom of history, top of this overlaps the bottom of the history
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - windowPaddingXDouble;
 				windows[i].height = inputWindowHeight;
-				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
-				windows[i].y = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
+				windows[i].x = windowPaddingX + sidebarWindowWidth;
+				windows[i].y = maxTermY - inputWindowHeight - windowPaddingY;
 			} else if (i == mapWinIndex) {
 				// map, same as cmd history, but without the padding for the input
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
-				windows[i].height = maxTermY - WINDOW_Y_PADDING_DOUBLE;
-				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
-				windows[i].y = WINDOW_Y_PADDING;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - windowPaddingXDouble;
+				windows[i].height = maxTermY - windowPaddingYDouble;
+				windows[i].x = windowPaddingX + sidebarWindowWidth;
+				windows[i].y = windowPaddingY;
 			} else if (i == ircHistoryWinIndex) {
 				// irc history, same as cmd history
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
-				windows[i].height = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
-				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
-				windows[i].y = WINDOW_Y_PADDING;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - windowPaddingXDouble;
+				windows[i].height = maxTermY - inputWindowHeight - windowPaddingYDouble + 1;
+				windows[i].x = windowPaddingX + sidebarWindowWidth;
+				windows[i].y = windowPaddingY;
 			} else if (i == ircInputWinIndex) {
 				// irc input, same as cmd input
-				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - WINDOW_X_PADDING_DOUBLE;
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - windowPaddingXDouble;
 				windows[i].height = inputWindowHeight;
-				windows[i].x = WINDOW_X_PADDING + sidebarWindowWidth;
-				windows[i].y = maxTermY - inputWindowHeight - WINDOW_Y_PADDING;
+				windows[i].x = windowPaddingX + sidebarWindowWidth;
+				windows[i].y = maxTermY - inputWindowHeight - windowPaddingY;
 			}
 		}
 

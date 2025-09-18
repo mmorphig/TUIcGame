@@ -1,0 +1,51 @@
+^]b[{Shell options:}
+ Redirect to file, overwrite: [COMMAND] > [FILE]
+ Redirect to file, append: [COMMAND] >> [FILE]
+ 
+Built-in commands:
+ 
+reset:
+ Resets the command window
+ Usage: reset
+ 
+run:
+ Runs a c file
+ Usage: run [C_FILE]
+ 
+cat:
+ Outputs the contents of the file
+ Usage: cat [FILE]
+ 
+cd:
+ Changes directory
+ Usage: cd [DIR]
+ 
+clear:
+ Clears the Command window
+ Usage: clear
+ 
+ls:
+ List files
+ Usage: ls [OPTIONS] [DIR]
+ Options:
+   -l    List view
+   -a    View all files
+ 
+mkdir:
+ Creates a directory
+ Usage: mkdir [DIR]
+ 
+rmdir:
+ Removes a directory
+ Usage: rmdir [DIR]
+ 
+rm
+ Removes files or directories
+ Usage: rm [OPTIONS] [FILE/DIR]
+ Options:
+   -r    Recursive, removes directories recursively
+   -f    Force, exactly that
+ 
+touch:
+ Touch files sensually
+ Usage: touch [FILE]

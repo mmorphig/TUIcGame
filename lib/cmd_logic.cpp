@@ -14,6 +14,7 @@ std::string cmdHistoryFile; // bash history in-game
 int cmdHistoryOffset; // Offset for the currento position in the history file
 int cmdHistoryFileLength;
 std::string cmdTextCache; // Holds the current cmdText in cache while cmdText is what the user sees from the history file
+std::string cmdHelpMessageFilepath;
 
 namespace CmdStuff {
 	// Actual implementation of the interpreter
@@ -94,63 +95,24 @@ namespace CmdStuff {
 		        std::string cmdError = "Unknown command: " + cmd;
 		        writeLineToFile(outputFile.c_str(), cmdError.c_str());
 		    }
+
+			// Debug commands, shows "Unknown command: cmd" but works
+			if (cmd == "sidebar-resize") {
+				if (argc > 1) Running::cmdSidebarWidth(atoi(argv[1]), outputFile, append);
+			} else if (cmd == "padding-resize") {
+				if (argc > 1) Running::cmdNewPadding(atoi(argv[1]), outputFile, append);
+			}
 		}
-		
 	}
 	
 	namespace Running { // all of the comamnds, extra helper functions are inlined in the parent namespace
 		void cmdHelp(std::string outputFile, bool append) {
-			cmdEcho("^]b[{Shell options:}\n\
- Redirect to file, overwrite: [COMMAND] > [FILE]\n\
- Redirect to file, append: [COMMAND] >> [FILE]\n\
- \n\
-Built-in commands:\n\
- \n\
-reset:\n\
- Resets the command window\n\
- Usage: reset\n\
- \n\
-run:\n\
- Runs a c file\n\
- Usage: run [C_FILE]\n\
- \n\
-cat:\n\
- Outputs the contents of the file\n\
- Usage: cat [FILE]\n\
- \n\
-cd:\n\
- Changes directory\n\
- Usage: cd [DIR]\n\
- \n\
-clear:\n\
- Clears the Command window\n\
- Usage: clear\n\
- \n\
-ls:\n\
- List files\n\
- Usage: ls [OPTIONS] [DIR]\n\
- Options:\n\
-   -l    List view\n\
-   -a    View all files\n\
- \n\
-mkdir:\n\
- Creates a directory\n\
- Usage: mkdir [DIR]\n\
- \n\
-rmdir:\n\
- Removes a directory\n\
- Usage: rmdir [DIR]\n\
- \n\
-rm\n\
- Removes files or directories\n\
- Usage: rm [OPTIONS] [FILE/DIR]\n\
- Options:\n\
-   -r    Recursive, removes directories recursively\n\
-   -f    Force, exactly that\n\
- \n\
-touch:\n\
- Touch files sensually\n\
- Usage: touch [FILE]", outputFile, append);
+			std::ifstream in(cmdHelpMessageFilepath);
+        	if (!in) throw std::runtime_error("Cannot open source file.");
+        	std::stringstream buffer;
+        	buffer << in.rdbuf();
+
+			cmdEcho(buffer.str(), outputFile, append);
 		}
 		void cmdRun(std::string file, std::string outputFile, bool append) {
 			InterpretCode::run(resolvePathFilesystem(file), homeDir, outputFile, append);
@@ -448,6 +410,23 @@ touch:\n\
 		            cmdEcho("touch: cannot stat '" + file + "'", outputFile, append);
 		        }
 		    }
+		}
+
+		/*
+		 * Debug commands, do not put these in help as they are not intended
+		 */
+		
+		void cmdSidebarWidth(int newSize, std::string outputFile = cmdWindowFile, bool append = true) {
+			if (newSize <= 5) { cmdEcho("Sidebar width cannot be less than 6", outputFile, append); return; };
+			if (newSize > maxTermX / 2) { cmdEcho("New sidebar thiccness is too thicc, calm down", outputFile, append); return; };
+			sidebarWindowWidth = (uint)newSize;
+		}
+		void cmdNewPadding(int newSize, std::string outputFile = cmdWindowFile, bool append = true) {
+			if (newSize <= (maxTermY / 2) - 3) { cmdEcho("Padding too padded", outputFile, append); return; };
+			windowPaddingX = newSize;
+			windowPaddingXDouble = windowPaddingX * 2;
+			windowPaddingY = newSize;
+			windowPaddingYDouble = windowPaddingY * 2;
 		}
 	}
 }

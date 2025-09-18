@@ -9,6 +9,10 @@ char autoScroll = 1;
 int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex;
 uint sidebarWindowWidth = 30;
 uint inputWindowHeight = 3;
+uint windowPaddingX = 1;
+uint windowPaddingXDouble = 2;
+uint windowPaddingY = 1;
+uint windowPaddingYDouble = 2;
 
 Character **screenBuffer = NULL;  // 2D array for the virtual screen buffer
 

@@ -41,6 +41,10 @@ extern uint_fast32_t maxTermX, maxTermY;
 extern char autoScroll;
 extern int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex;
 extern uint sidebarWindowWidth, inputWindowHeight;
+extern uint windowPaddingXDouble;
+extern uint windowPaddingX;
+extern uint windowPaddingY;
+extern uint windowPaddingYDouble;
 
 int initNcurses();
 

@@ -19,6 +19,7 @@
 #include <algorithm>
 #include "txt_writer.h" // This file uses some functions from here, might as well re-use functions :)
 #include "txt_reader.h"
+#include "cursed_drawing.h"
 #include "code_reading.hpp"
 #include "menu_logic.hpp"
 
@@ -42,6 +43,7 @@ extern std::string cmdHistoryFile; // bash history in-game
 extern int cmdHistoryOffset; // Offset for the currento position in the history file
 extern int cmdHistoryFileLength;
 extern std::string cmdTextCache; // Holds the current cmdText in cache while cmdText is what the user sees from the history file
+extern std::string cmdHelpMessageFilepath;
 
 namespace CmdStuff {
 	std::string inline readFile(const std::string& filename) {
@@ -206,6 +208,8 @@ namespace CmdStuff {
 		void cmdRm(int argc, std::vector<char*> argv, std::string outputFile, bool append);
 		void cmdTouch(int argc, std::vector<char*> argv, std::string outputFile, bool append);
 		void cmdHelp(std::string outputFile, bool append);
+		void cmdSidebarWidth(int newSize, std::string outputFile, bool append);
+		void cmdNewPadding(int newSize, std::string outputFile, bool append);
 	}
 }
 #endif
