@@ -7,6 +7,7 @@ uint_fast32_t prevMaxTermX, prevMaxTermY;
 uint_fast32_t maxTermX, maxTermY;
 char autoScroll = 1;
 int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex;
+uint sidebarWindowWidth = 30;
 
 Character **screenBuffer = NULL;  // 2D array for the virtual screen buffer
 
