@@ -111,7 +111,8 @@ bool userInput() {
 				} else if (focusedWindowIndex == menuSidebarWinIndex) { // Sidebar menu
 					menuSidebarHighlightedIndex = (menuSidebarHighlightedIndex - 1) % menuSidebarOptions.size();
 					break;
-				} else if (focusedWindowIndex == stgMenuWinIndex) { break;}
+				} else if (focusedWindowIndex == stgMenuWinIndex) { break; }
+				break;
 			}
 			
 			case KEY_DOWN: {
@@ -138,7 +139,8 @@ bool userInput() {
 				} else if (focusedWindowIndex == menuSidebarWinIndex) { // Sidebar menu
 					menuSidebarHighlightedIndex = (menuSidebarHighlightedIndex + 1) % menuSidebarOptions.size();
 					break;
-				}
+				} else if (focusedWindowIndex == stgMenuWinIndex) { break; }
+				break;
 			}
 			
 			case 0x09: {
