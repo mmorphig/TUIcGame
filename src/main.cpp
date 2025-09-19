@@ -281,17 +281,18 @@ int main(int argc, char* argv[]) {
 		std::string keep;
 		std::cout << "Name: ";
 		getline(std::cin, cmdName);
-		std::cout << "Is this name correct?\n " << cmdName << "\n";
 		if (cmdName == "root") {
 			cmdName = "";
-			std::cout << "Name cannot be \"root\"";
-		}
-		std::cin >> keep;
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::transform(keep.begin(), keep.end(), keep.begin(),
-			           [](unsigned char c) { return std::tolower(c); });
-		if (keep[0] == 'n') {
-			cmdName = "";
+			std::cout << "Name cannot be \"root\"\n";
+		} else {
+			std::cout << "Is this name correct?\n " << cmdName << "\n";
+			std::cin >> keep;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::transform(keep.begin(), keep.end(), keep.begin(),
+				           [](unsigned char c) { return std::tolower(c); });
+			if (keep[0] == 'n') {
+				cmdName = "";
+			}
 		}
 	}
 	std::cout << "\nloading...\n";
