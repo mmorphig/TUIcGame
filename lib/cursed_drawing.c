@@ -6,7 +6,7 @@ int focusedWindowIndex = 0; // Initially focused on the first window
 uint_fast32_t prevMaxTermX, prevMaxTermY;
 uint_fast32_t maxTermX, maxTermY;
 char autoScroll = 1;
-int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex;
+int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex, stgMenuWinIndex;
 uint sidebarWindowWidth = 30;
 uint inputWindowHeight = 3;
 uint windowPaddingX = 1;

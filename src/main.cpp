@@ -62,7 +62,7 @@ bool userInput() {
 				}
                 break;
             case KEY_DC: {
-	            if (focusedWindowIndex != 1) break;
+	            if (focusedWindowIndex != cmdInputWinIndex) break;
                 if (cmdCursorPos < cmdText.size()) {
                     cmdText.erase(cmdCursorPos, 1);
                 }
@@ -87,7 +87,7 @@ bool userInput() {
             }
             
             case KEY_UP: {
-	            if (focusedWindowIndex == 1) { // In command prompt
+	            if (focusedWindowIndex == cmdInputWinIndex) { // In command prompt
 		            cmdHistoryFileLength = countLinesInFile(cmdHistoryFile.c_str());
 					if (cmdHistoryFileLength == 0) break;
 				
@@ -108,14 +108,14 @@ bool userInput() {
 						}
 					}
 					break;
-				} else if (focusedWindowIndex == 2) { // SIdebar menu
+				} else if (focusedWindowIndex == menuSidebarWinIndex) { // Sidebar menu
 					menuSidebarHighlightedIndex = (menuSidebarHighlightedIndex - 1) % menuSidebarOptions.size();
 					break;
-				}
+				} else if (focusedWindowIndex == stgMenuWinIndex) { break;}
 			}
 			
 			case KEY_DOWN: {
-				if (focusedWindowIndex == 1) { // In command prompt
+				if (focusedWindowIndex == cmdInputWinIndex) { // In command prompt
 					cmdHistoryFileLength = countLinesInFile(cmdHistoryFile.c_str());
 					if (cmdHistoryOffset == 0) break;
 				
@@ -135,7 +135,7 @@ bool userInput() {
 					}
 					cmdCursorPos = cmdText.size();
 					break;
-				} else if (focusedWindowIndex == 2) { // Sidebar menu
+				} else if (focusedWindowIndex == menuSidebarWinIndex) { // Sidebar menu
 					menuSidebarHighlightedIndex = (menuSidebarHighlightedIndex + 1) % menuSidebarOptions.size();
 					break;
 				}
@@ -147,7 +147,6 @@ bool userInput() {
 			}
 			
             default: {
-				
                 if (key >= 32 && key <= 126) { // Printable ASCII
 					if (focusedWindowIndex == cmdInputWinIndex) {
 	                    cmdText.insert(cmdCursorPos, 1, static_cast<char>(key));
@@ -402,10 +401,14 @@ int main(int argc, char* argv[]) {
     ircInputWinIndex = numWindows; // 6
     create_window(sidebarWindowWidth - 1, maxTermY - 4, maxTermX - sidebarWindowWidth - 2, 3, (char*)"");
 
+	stgMenuWinIndex = numWindows; // 7
+	create_window(sidebarWindowWidth - 1, 1, maxTermX - sidebarWindowWidth - 2, maxTermY - 2, (char*)"Settings");
+
     windows[messageBoxWinIndex].visible = 0;
     windows[mapWinIndex].visible = 0;
     windows[ircHistoryWinIndex].visible = 0;
     windows[ircInputWinIndex].visible = 0;
+	windows[stgMenuWinIndex].visible = 0;
     std::string menuData;
     Menus::initSidebarMenu(menuData, menuSidebarHighlightedIndex);
     windows[menuSidebarWinIndex].data = const_cast<char*>(menuData.c_str());
@@ -532,6 +535,12 @@ int main(int argc, char* argv[]) {
 				windows[i].height = inputWindowHeight;
 				windows[i].x = windowPaddingX + sidebarWindowWidth;
 				windows[i].y = maxTermY - inputWindowHeight - windowPaddingY;
+			} else if (i == stgMenuWinIndex) {
+				// settings, same as map
+				windows[i].width = maxTermX - windows[menuSidebarWinIndex].width - windowPaddingXDouble;
+				windows[i].height = maxTermY - windowPaddingYDouble;
+				windows[i].x = windowPaddingX + sidebarWindowWidth;
+				windows[i].y = windowPaddingY;
 			}
 		}
 

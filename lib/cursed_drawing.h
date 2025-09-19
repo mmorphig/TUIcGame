@@ -39,7 +39,7 @@ extern int focusedWindowIndex; // Initially focused on the first window
 extern uint_fast32_t prevMaxTermX, prevMaxTermY;
 extern uint_fast32_t maxTermX, maxTermY;
 extern char autoScroll;
-extern int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex;
+extern int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex, stgMenuWinIndex;
 extern uint sidebarWindowWidth, inputWindowHeight;
 extern uint windowPaddingXDouble;
 extern uint windowPaddingX;

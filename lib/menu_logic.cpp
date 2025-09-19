@@ -4,28 +4,42 @@ int running = 0;
 std::string menuWindowSidebar;
 int menuSidebarHighlightedIndex = 0;
 int menuActiveIndex = 0;
-int menuQuitIndex = 3;
+int menuQuitIndex = 4;
+int menuSettingsIndex = 3;
+int menuIRCIndex = 2;
+int menuMapIndex = 1;
+int menuCmdIndex = 0;
 std::vector<std::string> menuSidebarOptions;
 std::vector<Menus::MapMarker> mapMarkers;
 
+/* menu variable prefixes: 
+ * irc: irc
+ * map: map
+ * cmd: command-line
+ * stg: settings
+ */
+
 namespace Menus {
 	void switchActiveMenu() {
-		// Hide all the relevant windows
+		// Hide all the windows
 		windows[cmdInputWinIndex].visible = 0;
 		windows[cmdHistoryWinIndex].visible = 0;
 		windows[mapWinIndex].visible = 0;
 		windows[ircHistoryWinIndex].visible = 0;
 		windows[ircInputWinIndex].visible = 0;
+		windows[stgMenuWinIndex].visible = 0;
 		// Also default hide the cursor
 		curs_set(0);
-		if (menuActiveIndex == 0) { // cmd
+		if (menuActiveIndex == menuCmdIndex) { // cmd
 			curs_set(1);
 			windows[cmdHistoryWinIndex].visible = 1;
 			windows[cmdInputWinIndex].visible = 1;
-		} else if (menuActiveIndex == 1) { // Map
+			changeWindowFocus(cmdInputWinIndex);
+		} else if (menuActiveIndex == menuMapIndex) { // Map
 			windows[mapWinIndex].visible = 1;
 			initMap();
-		} else if (menuActiveIndex == 2) { // IRC
+			changeWindowFocus(mapWinIndex);
+		} else if (menuActiveIndex == menuIRCIndex) { // IRC
 			curs_set(1);
 			if (ircOpened == false) {
 				std::string introMessage;
@@ -39,6 +53,10 @@ namespace Menus {
 			windows[ircHistoryWinIndex].visible = 1;
 			windows[ircInputWinIndex].visible = 1;
 			IRCLogic::reconnect(); // Init the connection now (reconnect starts a loop)
+			changeWindowFocus(ircInputWinIndex);
+		} else if (menuActiveIndex == menuSettingsIndex) {
+			windows[stgMenuWinIndex].visible = 1;
+			changeWindowFocus(stgMenuWinIndex);
 		} else if (menuActiveIndex == menuQuitIndex) {
 			running = 0; // Quit safely
 		}
@@ -53,7 +71,7 @@ namespace Menus {
 	}
 	
 	void initSidebarMenu(std::string& menuData, int selectedIndex) {
-		menuSidebarOptions = {"Command Window", "Map", "IRC", "Quit"};
+		menuSidebarOptions = {"Command Window", "Map", "IRC", "Settings", "Quit"};
 	    std::string sidebarText =  "";
 	    for (int i = 0; i < menuSidebarOptions.size(); i++) {
 			if (selectedIndex == i) {menuSidebarOptions[i] = "^]1b[{" + menuSidebarOptions[i] + "}";} 
