@@ -28,6 +28,8 @@ namespace CmdStuff {
 			return tokens;
 		}	
 		void interpretCmdText(std::string cmdTextIn) {
+			cmdHistoryOffset = 0; // make sure the offset is reset
+
 		    auto tokens = split(cmdTextIn);
 		    if (tokens.empty()) return;
 		
