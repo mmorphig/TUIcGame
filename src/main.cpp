@@ -13,6 +13,7 @@
 #include "../lib/menu_logic.hpp"
 #include "../lib/game_elements.hpp"
 #include "../lib/irc_logic.hpp"
+#include "../lib/settings_menu.hpp"
 #include "../lib/txt_reader.h"
 #include "../lib/txt_writer.h"
 
@@ -320,7 +321,7 @@ int main(int argc, char* argv[]) {
 	}
     if (testFile.is_open()) { // TODO: maybe make the help message have a location in the player's root dir
 		cmdHelpMessageFilepath = "resources/helpmsg.txt";
-		newSave = 0; // newSave is set to 0, as this is a save that was already created
+		newSave = 0; // newSave is set to 0, as this is a save that was already created (defaulted to 1 so this line is not needed the it is a new save)
 		// Just to make sure, clear proc and tmp
 		std::string clearTempCommand = "rm -rf ./save/" + cmdName + "/root/proc/*}";
 		system(clearTempCommand.c_str());

@@ -28,6 +28,7 @@ set(CPP_SOURCES
     lib/menu_logic.cpp
     lib/game_elements.cpp
     lib/irc_logic.cpp
+    lib/settings_menu.cpp
     src/main.cpp
 )
 

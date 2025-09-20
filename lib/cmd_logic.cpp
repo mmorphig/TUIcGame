@@ -422,7 +422,7 @@ namespace CmdStuff {
 			sidebarWindowWidth = (uint)newSize;
 		}
 		void cmdNewPadding(int newSize, std::string outputFile = cmdWindowFile, bool append = true) {
-			if (newSize <= (maxTermY / 2) - 3) { cmdEcho("Padding too padded", outputFile, append); return; };
+			if (newSize >= (maxTermY / 2) - 3) { cmdEcho("Padding too padded", outputFile, append); return; };
 			windowPaddingX = newSize;
 			windowPaddingXDouble = windowPaddingX * 2;
 			windowPaddingY = newSize;

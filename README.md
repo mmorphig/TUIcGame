@@ -17,9 +17,9 @@ Both executables are placed in the root folder (same directory as the README in 
 - ninja (but could easily be changed to not require it)
 - g++
 - gcc
-- glibc
 - Ncurses
 - tcc (Tiny C Compiler)
+- nlohmann-json
 - Optionally tree (used to show user directory on game startup, purely 'cosmetic')
 
 ## Controls and small tutorial if you for some reason get this compiled and working for you:
