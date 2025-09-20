@@ -312,6 +312,11 @@ int main(int argc, char* argv[]) {
 	ircWindowFile = homeDir + ".cache/simpleIRC/history.txt";
 	ircConnectionTempFile = rootDir + "tmp/ircConnected.tmp.txt";
 	std::ifstream testFile;
+	cmdHelpMessageFilepath = "resources/helpmsg.txt";
+	stgSettingsFilepath = "resources/settings.json";
+
+	Settings::setDefaultSettings(); // set the defaults, will be overwritten by reading the save file
+	// TODO: read the save file
 	
 	// Test if the save exists already
 	if (debug) { // If the user does not have a hostname, then it's a new save
@@ -320,7 +325,6 @@ int main(int argc, char* argv[]) {
 		testFile = std::ifstream(hostnameFile); // Actual hostname
 	}
     if (testFile.is_open()) { // TODO: maybe make the help message have a location in the player's root dir
-		cmdHelpMessageFilepath = "resources/helpmsg.txt";
 		newSave = 0; // newSave is set to 0, as this is a save that was already created (defaulted to 1 so this line is not needed the it is a new save)
 		// Just to make sure, clear proc and tmp
 		std::string clearTempCommand = "rm -rf ./save/" + cmdName + "/root/proc/*}";
@@ -335,7 +339,6 @@ int main(int argc, char* argv[]) {
 		emptyFile(cmdWindowFile.c_str());
 		emptyFile(cmdHistoryFile.c_str());
     } else {
-		cmdHelpMessageFilepath = "resources/helpmsg.txt";
 		createFile(cmdWindowFile.c_str());
 		
 		// create the home dir, the save directory is named the same, it's simpler

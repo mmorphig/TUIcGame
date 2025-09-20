@@ -103,6 +103,8 @@ namespace CmdStuff {
 				if (argc > 1) Running::cmdSidebarWidth(atoi(argv[1]), outputFile, append);
 			} else if (cmd == "padding-resize") {
 				if (argc > 1) Running::cmdNewPadding(atoi(argv[1]), outputFile, append);
+			} else if (cmd == "save-settings") {
+				Running::cmdSaveSettings(outputFile, append);
 			}
 		}
 	}
@@ -415,13 +417,14 @@ namespace CmdStuff {
 		}
 
 		/*
-		 * Debug commands, do not put these in help as they are not intended
+		 * Debug commands, do not put these in help as they are not intended to really be used
 		 */
 		
 		void cmdSidebarWidth(int newSize, std::string outputFile = cmdWindowFile, bool append = true) {
 			if (newSize <= 5) { cmdEcho("Sidebar width cannot be less than 6", outputFile, append); return; };
 			if (newSize > maxTermX / 2) { cmdEcho("New sidebar thiccness is too thicc, calm down", outputFile, append); return; };
 			sidebarWindowWidth = (uint)newSize;
+			Settings::setSetting("sidebar width", newSize);
 		}
 		void cmdNewPadding(int newSize, std::string outputFile = cmdWindowFile, bool append = true) {
 			if (newSize >= (maxTermY / 2) - 3) { cmdEcho("Padding too padded", outputFile, append); return; };
@@ -429,6 +432,10 @@ namespace CmdStuff {
 			windowPaddingXDouble = windowPaddingX * 2;
 			windowPaddingY = newSize;
 			windowPaddingYDouble = windowPaddingY * 2;
+			Settings::setSetting("window edge padding", newSize);
+		}
+		void cmdSaveSettings(std::string outputFile = cmdWindowFile, bool append = true) {
+			Settings::saveSettings();
 		}
 	}
 }

@@ -7,7 +7,7 @@ uint_fast32_t prevMaxTermX, prevMaxTermY;
 uint_fast32_t maxTermX, maxTermY;
 char autoScroll = 1;
 int cmdHistoryWinIndex, cmdInputWinIndex, menuSidebarWinIndex, messageBoxWinIndex, mapWinIndex, ircHistoryWinIndex, ircInputWinIndex, stgMenuWinIndex;
-uint sidebarWindowWidth = 30;
+uint sidebarWindowWidth = 20;
 uint inputWindowHeight = 3;
 uint windowPaddingX = 1;
 uint windowPaddingXDouble = 2;

@@ -22,6 +22,7 @@
 #include "cursed_drawing.h"
 #include "code_reading.hpp"
 #include "menu_logic.hpp"
+#include "settings_menu.hpp"
 
 /* RULES
  * 
@@ -208,8 +209,10 @@ namespace CmdStuff {
 		void cmdRm(int argc, std::vector<char*> argv, std::string outputFile, bool append);
 		void cmdTouch(int argc, std::vector<char*> argv, std::string outputFile, bool append);
 		void cmdHelp(std::string outputFile, bool append);
+
 		void cmdSidebarWidth(int newSize, std::string outputFile, bool append);
 		void cmdNewPadding(int newSize, std::string outputFile, bool append);
+		void cmdSaveSettings(std::string outputFile, bool append);
 	}
 }
 #endif
