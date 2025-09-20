@@ -17,18 +17,18 @@ include_directories(${PROJECT_SOURCE_DIR}/lib)
 
 # Source files
 set(C_SOURCES
-    lib/cursed_drawing.c
-    lib/txt_reader.c
-    lib/txt_writer.c
+    src/lib/cursed_drawing.c
+    src/lib/txt_reader.c
+    src/lib/txt_writer.c
 )
 
 set(CPP_SOURCES
-    lib/code_reading.cpp
-    lib/cmd_logic.cpp
-    lib/menu_logic.cpp
-    lib/game_elements.cpp
-    lib/irc_logic.cpp
-    lib/settings_menu.cpp
+    src/lib/code_reading.cpp
+    src/lib/cmd_logic.cpp
+    src/lib/menu_logic.cpp
+    src/lib/game_elements.cpp
+    src/lib/irc_logic.cpp
+    src/lib/settings_menu.cpp
     src/main.cpp
 )
 

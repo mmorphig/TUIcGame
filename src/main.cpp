@@ -7,15 +7,15 @@
 #include <ncurses.h>
 #include <cstdlib>
 #include <cstring>
-#include "../lib/cursed_drawing.h"
-#include "../lib/code_reading.hpp"
-#include "../lib/cmd_logic.hpp"
-#include "../lib/menu_logic.hpp"
-#include "../lib/game_elements.hpp"
-#include "../lib/irc_logic.hpp"
-#include "../lib/settings_menu.hpp"
-#include "../lib/txt_reader.h"
-#include "../lib/txt_writer.h"
+#include "lib/cursed_drawing.h"
+#include "lib/code_reading.hpp"
+#include "lib/cmd_logic.hpp"
+#include "lib/menu_logic.hpp"
+#include "lib/game_elements.hpp"
+#include "lib/irc_logic.hpp"
+#include "lib/settings_menu.hpp"
+#include "lib/txt_reader.h"
+#include "lib/txt_writer.h"
 
 int debug = 0;
 
