@@ -376,8 +376,8 @@ int main(int argc, char* argv[]) {
     cmdUserPrompt = "^]4[{" + cmdName + "}@" + "^]6[{" + cmdHostname + "} ^]4[{" + cmdCurrentDisplayDirectory + "} $ ";
     ircUserPrompt = ircNickname + " -> ";
     
-    std::vector<int> cmdHistWinColor, cmdPromptWinColor, ircHistWinColor, ircPromptWinColor, sidebarWinColor; // Temporary 
-    std::vector<int> cmdHistWinAttribute, cmdPromptWinAttribute, ircHistWinAttribute, ircPromptWinAttribute, sidebarWinAttribute;
+    std::vector<int> cmdHistWinColor, cmdPromptWinColor, ircHistWinColor, ircPromptWinColor, sidebarWinColor, settingsWinColor; // Temporary 
+    std::vector<int> cmdHistWinAttribute, cmdPromptWinAttribute, ircHistWinAttribute, ircPromptWinAttribute, sidebarWinAttribute, settingsWinAttribute;
     
     std::cout << "\nLoading done!\n";
     napms(2000);
@@ -416,7 +416,7 @@ int main(int argc, char* argv[]) {
     windows[ircHistoryWinIndex].visible = 0;
     windows[ircInputWinIndex].visible = 0;
 	windows[stgMenuWinIndex].visible = 0;
-    std::string menuData;
+    std::string menuData, settingsData;
     Menus::initSidebarMenu(menuData, menuSidebarHighlightedIndex);
     windows[menuSidebarWinIndex].data = const_cast<char*>(menuData.c_str());
     focusedWindowIndex = 1;
@@ -463,13 +463,24 @@ int main(int argc, char* argv[]) {
 		// Update menu sidebar window
 		Menus::initSidebarMenu(menuData, menuSidebarHighlightedIndex);
 		std::string sidebarWinData = menuData;
+		fileLog(const_cast<char*>(sidebarWinData.c_str()));
 		delete[] windows[menuSidebarWinIndex].dataColor;
 		delete[] windows[menuSidebarWinIndex].dataAttributes;
 		processEscapeSequences(sidebarWinData, sidebarWinColor, sidebarWinAttribute);
 		windows[menuSidebarWinIndex].data = const_cast<char*>(sidebarWinData.c_str());
 		windows[menuSidebarWinIndex].dataColor = vectorIntToIntArray(sidebarWinColor);
-		windows[menuSidebarWinIndex].dataAttributes = vectorIntToIntArray(sidebarWinColor);
+		windows[menuSidebarWinIndex].dataAttributes = vectorIntToIntArray(sidebarWinAttribute);
 		
+		Settings::createSettingsWindow(settingsData);
+		std::string settingsWinData = settingsData;
+		fileLog(const_cast<char*>(settingsWinData.c_str()));
+		delete[] windows[stgMenuWinIndex].dataColor;
+		delete[] windows[stgMenuWinIndex].dataAttributes;
+		processEscapeSequences(settingsWinData, settingsWinColor, settingsWinAttribute);
+		windows[stgMenuWinIndex].data = const_cast<char*>(settingsWinData.c_str());
+		windows[stgMenuWinIndex].dataColor = vectorIntToIntArray(settingsWinColor);
+		windows[stgMenuWinIndex].dataAttributes = vectorIntToIntArray(settingsWinAttribute);
+
 		scrollToBottom(cmdHistoryWinIndex);
 		scrollToBottom(ircHistoryWinIndex);
 		

@@ -3,8 +3,11 @@
 
 #include <string>
 #include <unordered_map>
+#include <map>
 #include <variant>
 #include <fstream>
+#include <sstream>
+#include <iomanip>
 #include <nlohmann/json.hpp>
 #include "../global_version_variables.hpp"
 
@@ -27,6 +30,7 @@ namespace Settings {
 
     namespace {
         std::unordered_map<std::string, setting> settingsMap;
+        std::map<std::string, std::vector<std::string>> settingsGroups;
     }
 
     template <typename T>
@@ -54,6 +58,7 @@ namespace Settings {
     
     void setDefaultSettings();
     void saveSettings();
+    void createSettingsWindow(std::string& settingsData);
 }
 
 #endif
