@@ -81,24 +81,26 @@ namespace Menus {
 	}
 
 	void messageBox(std::string message, std::string title, std::vector<std::string> options, int width, int height) {
-	    windows[messageBoxWinIndex].visible = 1;
+		windows[messageBoxWinIndex].visible = 1;
 	    windows[messageBoxWinIndex].x = maxTermX / 2 - width / 2;
 	    windows[messageBoxWinIndex].y = maxTermY / 2 - height / 2;
 	    windows[messageBoxWinIndex].height = height;
 	    windows[messageBoxWinIndex].width = width;
-	
-	    static char* storedTitle;
+
+		static char* storedTitle;
 	    static char* storedMessage;
-	    
-		delete[] storedTitle;
-	    delete[] storedMessage;
-	
+
+	    if (storedTitle != nullptr || storedMessage != nullptr) {
+			delete[] storedTitle;
+	    	delete[] storedMessage;
+		}
+		
 	    storedTitle = new char[title.length() + 1];
 	    storedMessage = new char[message.length() + 1];
 	    
         strcpy(storedTitle, title.c_str());
 	    strcpy(storedMessage, message.c_str());
-	
+		
 	    windows[messageBoxWinIndex].title = storedTitle;
 	    windows[messageBoxWinIndex].data = storedMessage;
 	    //changeWindowFocus(messageBoxWinIndex);

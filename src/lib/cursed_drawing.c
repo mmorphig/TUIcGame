@@ -110,7 +110,7 @@ int draw_border_to_buffer(uint windowsIndex) {
                 } else if (line_index < line_count && lines[line_index]) {
                     if (char_index < last_char_index && char_index < (uint)strlen(lines[line_index])) { // Draw a data character
                         screenBuffer[current_y][windows[windowsIndex].x + j].character = lines[line_index][char_index];
-                        //if (windowsIndex <= 2) {
+                        if (windowsIndex <= 2) {
 						    // Compute the flat index into dataColor
 						    size_t flat_index = 0;
 							for (uint_fast32_t li = 0; li < line_index; li++) {
@@ -120,7 +120,7 @@ int draw_border_to_buffer(uint windowsIndex) {
 							
 						    screenBuffer[current_y][windows[windowsIndex].x + j].colorPair = windows[windowsIndex].dataColor[flat_index];
 						    screenBuffer[current_y][windows[windowsIndex].x + j].attribute = windows[windowsIndex].dataAttributes[flat_index];
-						//}
+					    }
                     } else if (char_index == last_char_index && (uint)strlen(lines[line_index]) > last_char_index) {
                         screenBuffer[current_y][windows[windowsIndex].x + j].character = '>';
                         screenBuffer[current_y][windows[windowsIndex].x + j - 1].character = ' ';
