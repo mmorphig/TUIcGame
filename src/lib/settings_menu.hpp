@@ -9,9 +9,12 @@
 #include <sstream>
 #include <iomanip>
 #include <nlohmann/json.hpp>
+#include "txt_writer.h"
 #include "../global_version_variables.hpp"
 
 extern std::string stgSettingsFilepath;
+extern std::string stgSelectedKey;
+extern std::string stgSelectedGroup;
 
 namespace Settings {
     typedef enum {

@@ -112,7 +112,10 @@ bool userInput() {
 				} else if (focusedWindowIndex == menuSidebarWinIndex) { // Sidebar menu
 					menuSidebarHighlightedIndex = (menuSidebarHighlightedIndex - 1) % menuSidebarOptions.size();
 					break;
-				} else if (focusedWindowIndex == stgMenuWinIndex) { break; }
+				} else if (focusedWindowIndex == stgMenuWinIndex) {
+					
+					break; 
+				}
 				break;
 			}
 			
@@ -140,7 +143,10 @@ bool userInput() {
 				} else if (focusedWindowIndex == menuSidebarWinIndex) { // Sidebar menu
 					menuSidebarHighlightedIndex = (menuSidebarHighlightedIndex + 1) % menuSidebarOptions.size();
 					break;
-				} else if (focusedWindowIndex == stgMenuWinIndex) { break; }
+				} else if (focusedWindowIndex == stgMenuWinIndex) {
+					
+					break; 
+				}
 				break;
 			}
 			
@@ -481,7 +487,6 @@ int main(int argc, char* argv[]) {
 		windows[stgMenuWinIndex].dataAttributes = vectorIntToIntArray(settingsWinAttribute);
 
 		// Update messageBox window, mostly here to prevent a crash
-
 		delete[] windows[messageBoxWinIndex].dataColor;
 		delete[] windows[messageBoxWinIndex].dataAttributes;
 		//processEscapeSequences(messageBoxWinData, messageBoxWinColor, messageBoxWinAttribute);

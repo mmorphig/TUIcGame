@@ -2,6 +2,7 @@
 
 std::string stgSettingsFilepath;
 std::string stgSelectedKey;
+std::string stgSelectedGroup;
 
 namespace Settings {    
     void setDefaultSettings() {
@@ -13,6 +14,7 @@ namespace Settings {
             {"Display", {"window edge padding", "sidebar width"}}
         };
         stgSelectedKey = "window edge padding";
+        stgSelectedGroup = "Display";
     }
 
     void saveSettings() {
@@ -46,6 +48,7 @@ namespace Settings {
                 if (it == settingsMap.end()) {
                     continue; // skip if key missing
                 }
+                fileLog("%s", const_cast<char*>(stgSelectedKey.c_str()));
 
                 const setting& s = it->second;
                 if (key == stgSelectedKey) {
