@@ -92,7 +92,7 @@ namespace CmdStuff {
 		        Running::cmdReset(outputFile, append);
 		    } else if (cmd == "sudo") { // Not an actual command, but someone might try to use it anyway
 		        Running::cmdEcho("Unknown command: sudo \nsudo is not needed", outputFile, append);
-		        Menus::messageBox("Task failed successfully", "Error", std::vector<std::string>{"null"}, 50, 10);
+		        //Menus::messageBox("Task failed successfully", "Error", std::vector<std::string>{"null"}, 50, 10); // Broken rn, I don't care about it
 		    } else {
 		        std::string cmdError = "Unknown command: " + cmd;
 		        writeLineToFile(outputFile.c_str(), cmdError.c_str());
